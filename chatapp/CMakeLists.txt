@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Quick REQUIRED)
+find_package(Qt5 COMPONENTS Quick Sql REQUIRED)
 
 set(SOURCES
     main.cpp
@@ -29,4 +29,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE include)
 
 target_link_libraries(${PROJECT_NAME}
     Qt5::Quick
+    Qt5::Sql
 )
