@@ -5,11 +5,11 @@ Item {
     width: 400
     height: 300
 
-    signal registerClicked(string username, string password)
+    signal registerClicked(string username, string password)  //register click
 
     Column {
         anchors.centerIn: parent
-        spacing: 20
+        spacing: 20    
 
         Text {
             text: "Register Here"
