@@ -17,6 +17,7 @@ set(HEADERS
     include/usermanager.h
 )
 
+# No need to add QML files manually, qml.qrc handles all QML resources
 qt_add_resources(QML_RESOURCES qml.qrc)
 
 add_executable(${PROJECT_NAME}
