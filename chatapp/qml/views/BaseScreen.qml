@@ -9,7 +9,7 @@ Item {
 
     property alias contentItem: contentLoader.item
 
-    // Welcome/Caution overlay
+    // Welcome/Caution overlay  //need to add some timer to play background audio play
     Rectangle {
         id: welcomeOverlay
         anchors.fill: parent
