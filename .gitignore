@@ -1,0 +1,22 @@
+# Ignore build artifacts and executables
+build/
+*.exe
+*.o
+*.obj
+*.dll
+*.so
+*.a
+*.user
+*.pro.user
+*.qrc.depends
+*.qrc.translations
+*.moc
+*.rcc
+*.qmlc
+*.jsc
+*.pyc
+*.pyo
+*.log
+*.tmp
+*.swp
+.DS_Store
