@@ -1,51 +1,30 @@
-# ChatApp
-
-A Qt Quick Application using QML for the frontend and C++ for the backend.
+# ChatApp (Qt Quick + C++)
 
 ## Project Structure
 
 ```
 chatapp/
-├── CMakeLists.txt / chatapp.pro   # Project build file
-├── README.md                      # Project overview & build guide
-├── main.cpp                       # App entry point
-├── include/                       # C++ header files (.h/.hpp)
-│   └── usermanager.h              # Example: UserManager class header
-├── src/                           # C++ source files (.cpp)
-│   └── usermanager.cpp            # Example: UserManager class logic
-├── qml/                           # All QML files
-│   ├── main.qml                   # Root QML file
-│   └── views/
-│       └── RegisterView.qml       # Registration screen
-├── assets/                        # Icons, images, fonts
-│   └── logo.png                   # Example asset
+├── backend/         # C++ logic classes
+├── qml/             # All QML files
+├── assets/          # Icons and images
+├── main.cpp         # App entry point
+├── chatapp.pro      # Qt Project File
+├── CMakeLists.txt   # CMake Build File
+└── README.md
 ```
 
 ## Setup Instructions
 
-### Prerequisites
-- Qt 5.15+ or Qt 6.x (with Qt Quick)
-- CMake 3.14+
-- C++17 compiler
+1. Open `chatapp` in Qt Creator.
+2. Choose either `chatapp.pro` (qmake) or `CMakeLists.txt` (CMake) as the project file.
+3. Build and run the project.
+4. You should see a window with the heading "Register Here".
 
-### Build & Run (CMake)
-```bash
-cd chatapp
-mkdir build && cd build
-cmake ..
-make
-./chatapp
-```
+## Development
+- Place all QML files in `qml/`.
+- Place all C++ backend logic in `backend/` (and headers in `include/`).
+- Place images, icons, and audio in `assets/`.
 
-### Build & Run (Qt Creator)
-- Open `chatapp.pro` or `CMakeLists.txt` in Qt Creator
-- Click the Run button
-
-### Development Notes
-- Place new QML files in `qml/` and `qml/views/`
-- Place new C++ backend files in `src/` and headers in `include/`
-- Place images/icons in `assets/`
-
----
-- The initial window loads `RegisterView.qml` as a test.
-- Update `main.cpp` and QML files as you add features.
+## Notes
+- The project is ready for further development.
+- Update `main.cpp` and QML as you add features.
