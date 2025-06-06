@@ -7,9 +7,24 @@ ApplicationWindow {
     height: 300
     title: qsTr("ChatApp")
 
-    // Load RegisterView
+    property string currentView: "register"
+    property string registeredUsername: ""
+    property string registeredPassword: ""
+
     Loader {
+        id: viewLoader
         anchors.fill: parent
-        source: "views/RegisterView.qml"
+        source: currentView === "register" ? "views/RegisterView.qml" : "views/UserDetailsView.qml"
+        onLoaded: {
+            if (currentView === "register") {
+                viewLoader.item.registerClicked.connect(function(username, password) {
+                    registeredUsername = username
+                    registeredPassword = password
+                    currentView = "userDetails"
+                })
+            } else if (currentView === "userDetails") {
+                viewLoader.item.username = registeredUsername
+            }
+        }
     }
 }
