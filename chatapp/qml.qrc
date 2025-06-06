@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>qml/RegisterView.qml</file>
+        <file>qml/main.qml</file>
+    </qresource>
+</RCC>
