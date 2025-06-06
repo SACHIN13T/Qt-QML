@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Quick Sql REQUIRED)
+find_package(Qt6 COMPONENTS Quick Sql REQUIRED)
 
 set(SOURCES
     main.cpp
@@ -17,7 +17,7 @@ set(HEADERS
     include/usermanager.h
 )
 
-qt5_add_resources(QML_RESOURCES qml.qrc)
+qt6_add_resources(QML_RESOURCES qml.qrc)
 
 add_executable(${PROJECT_NAME}
     ${SOURCES}
@@ -28,6 +28,6 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
 target_link_libraries(${PROJECT_NAME}
-    Qt5::Quick
-    Qt5::Sql
+    Qt6::Quick
+    Qt6::Sql
 )
