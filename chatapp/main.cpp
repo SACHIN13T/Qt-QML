@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    // Only register the resource file once, and use correct QML path
     QResource::registerResource("qml.qrc");
     QQmlApplicationEngine engine;
 
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("isValidUsername", QVariant::fromValue(&isValidUsername));
     engine.rootContext()->setContextProperty("isValidPassword", QVariant::fromValue(&isValidPassword));
 
-    engine.load(QUrl(QStringLiteral("qrc:/qml/RegisterView.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
 

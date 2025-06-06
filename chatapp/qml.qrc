@@ -1,6 +1,15 @@
 <RCC>
     <qresource prefix="/qml">
-        <file>qml/RegisterView.qml</file>
         <file>qml/main.qml</file>
+        <file>qml/views/BaseScreen.qml</file>
+        <file>qml/views/ChangePasswordView.qml</file>
+        <file>qml/views/RegisterView.qml</file>
+        <file>qml/views/UserDetailsView.qml</file>
+    </qresource>
+    <qresource prefix="/assets">
+        <file>assets/logo.png</file>
+        <file>assets/login_fail.mp3</file>
+        <file>assets/login_success.mp3</file>
+        <file>assets/welcome.mp3</file>
     </qresource>
 </RCC>
