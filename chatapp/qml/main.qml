@@ -1,5 +1,6 @@
 import QtQuick 6.0
 import QtQuick.Controls 6.0
+import Backend 1.0
 
 ApplicationWindow {
     visible: true
@@ -7,6 +8,7 @@ ApplicationWindow {
     height: 300
     title: qsTr("ChatApp")
 
+    property UserManager userManager: UserManager {}
     property string currentView: "register"
     property string registeredUsername: ""
     property string registeredPassword: ""
@@ -17,26 +19,54 @@ ApplicationWindow {
         anchors.fill: parent
         source: "views/BaseScreen.qml"
         onLoaded: {
-            // Set the main content of BaseScreen
-            baseLoader.item.contentItem = Qt.createComponent(currentView === "register" ? "views/RegisterView.qml" : "views/UserDetailsView.qml").createObject(baseLoader.item)
-            if (currentView === "register") {
-                baseLoader.item.contentItem.registerClicked.connect(function(username, password) {
-                    registeredUsername = username
-                    registeredPassword = password
-                    // Simulate login logic (replace with real backend call)
-                    var loginSuccess = username && password && username.length > 0 && password.length > 0 // Dummy logic
-                    if (loginSuccess) {
-                        if (baseLoader.item.playLoginSuccess) baseLoader.item.playLoginSuccess()
-                        currentView = "userDetails"
-                        baseLoader.item.contentItem = Qt.createComponent("views/UserDetailsView.qml").createObject(baseLoader.item)
-                        baseLoader.item.contentItem.username = registeredUsername
-                    } else {
-                        if (baseLoader.item.playLoginFail) baseLoader.item.playLoginFail()
-                    }
-                })
-            } else if (currentView === "userDetails") {
-                baseLoader.item.contentItem.username = registeredUsername
+            function showView(viewName) {
+                if (viewName === "register") {
+                    baseLoader.item.contentItem = Qt.createComponent("views/RegisterView.qml").createObject(baseLoader.item)
+                    baseLoader.item.contentItem.registerClicked.connect(function(username, password) {
+                        if (userManager.registerUser(username, password)) {
+                            registeredUsername = username
+                            registeredPassword = password
+                            if (baseLoader.item.playLoginSuccess) baseLoader.item.playLoginSuccess()
+                            currentView = "userDetails"
+                            showView("userDetails")
+                        } else {
+                            if (baseLoader.item.playLoginFail) baseLoader.item.playLoginFail()
+                        }
+                    })
+                } else if (viewName === "userDetails") {
+                    baseLoader.item.contentItem = Qt.createComponent("views/UserDetailsView.qml").createObject(baseLoader.item)
+                    baseLoader.item.contentItem.username = registeredUsername
+                } else if (viewName === "changePassword") {
+                    baseLoader.item.contentItem = Qt.createComponent("views/ChangePasswordView.qml").createObject(baseLoader.item)
+                    baseLoader.item.contentItem.username = registeredUsername
+                    baseLoader.item.contentItem.passwordChanged.connect(function(newPassword) {
+                        if (userManager.changePassword(registeredUsername, newPassword)) {
+                            currentView = "userDetails"
+                            showView("userDetails")
+                        }
+                    })
+                } else if (viewName === "login") {
+                    // Dummy login screen for demonstration
+                    // You should implement a real login screen
+                    var loginDialog = Qt.createQmlObject('import QtQuick.Controls 6.0; Dialog { id: dlg; title: "Login"; modal: true; standardButtons: Dialog.Ok | Dialog.Cancel; property string username: ""; property string password: ""; contentItem: Column { spacing: 10; TextField { placeholderText: "Username"; text: dlg.username } TextField { placeholderText: "Password"; echoMode: TextInput.Password; text: dlg.password } } }', baseLoader.item)
+                    loginDialog.open()
+                    loginDialog.accepted.connect(function() {
+                        if (userManager.loginUser(loginDialog.username, loginDialog.password)) {
+                            registeredUsername = loginDialog.username
+                            if (userManager.isPasswordExpired(registeredUsername)) {
+                                currentView = "changePassword"
+                                showView("changePassword")
+                            } else {
+                                currentView = "userDetails"
+                                showView("userDetails")
+                            }
+                        } else {
+                            if (baseLoader.item.playLoginFail) baseLoader.item.playLoginFail()
+                        }
+                    })
+                }
             }
+            showView(currentView)
         }
     }
 }

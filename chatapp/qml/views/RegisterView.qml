@@ -5,7 +5,7 @@ Item {
     width: 400
     height: 300
 
-    signal registerClicked(string username, string password)  //register click
+    signal registerClicked(string username, string password)
 
     Column {
         anchors.centerIn: parent
